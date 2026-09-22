@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Organizador de Estudos</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonte Inter do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Biblioteca Three.js para o fundo 3D -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Canvas 3D de Fundo -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="app-container">
+    <header class="main-header">
+      <div class="badge">Protótipo de Organização</div>
+      <h1>Meu Organizador de Estudos</h1>
+      <p>Mapeie seus principais incômodos no trabalho e nos estudos para transformar sua rotina.</p>
+    </header>
+
+    <!-- Filtros de Categoria -->
+    <nav class="filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="estudos">Estudos</button>
+      <button class="filter-btn" data-filter="trabalho">Trabalho & Rotina</button>
+      <button class="filter-btn" data-filter="foco">Foco & Saúde Mental</button>
+    </nav>
+
+    <!-- Grid de Cards de Problemas Reais -->
+    <main class="cards-grid">
+
+      <!-- Card 1 -->
+      <article class="card" data-category="trabalho" onclick="openModal('modal-1')">
+        <div class="card-header">
+          <span class="card-category category-work">Trabalho & Estudos</span>
+          <span class="card-tag">Alta Prioridade</span>
+        </div>
+        <h2 class="card-title">Cansaço Extremo Pós-Trabalho</h2>
+        <p class="card-description">Sensação de esgotamento mental ao chegar do trabalho, resultando em rendimento quase nulo nos estudos noturnos.</p>
+        <div class="card-footer">
+          <span class="solution-count">💡 Ver 3 estratégias de solução</span>
+          <span class="arrow-icon">&rarr;</span>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card" data-category="foco" onclick="openModal('modal-2')">
+        <div class="card-header">
+          <span class="card-category category-foco">Foco & Distração</span>
+          <span class="card-tag">Frequente</span>
+        </div>
+        <h2 class="card-title">Procrastinação por Smartphone</h2>
+        <p class="card-description">Interrupções constantes para verificar redes sociais e mensagens, quebrando o estado de fluxo e prolongando o tempo de estudo.</p>
+        <div class="card-footer">
+          <span class="solution-count">💡 Ver 3 estratégias de solução</span>
+          <span class="arrow-icon">&rarr;</span>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card" data-category="estudos" onclick="openModal('modal-3')">
+        <div class="card-header">
+          <span class="card-category category-estudos">Planejamento</span>
+          <span class="card-tag">Crítico</span>
+        </div>
+        <h2 class="card-title">Acúmulo de Matérias e Prazos</h2>
+        <p class="card-description">Falta de um cronograma realista que resulta no acúmulo de conteúdos antes de exames ou entregas de projetos do trabalho.</p>
+        <div class="card-footer">
+          <span class="solution-count">💡 Ver 3 estratégias de solução</span>
+          <span class="arrow-icon">&rarr;</span>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card" data-category="foco" onclick="openModal('modal-4')">
+        <div class="card-header">
+          <span class="card-category category-foco">Saúde Mental</span>
+          <span class="card-tag">Ansiedade</span>
+        </div>
+        <h2 class="card-title">Sobrecarga Cognitiva e Burnout</h2>
+        <p class="card-description">Sensação contínua de estar "atrás do prejuízo", levando à ansiedade constante e incapacidade de relaxar nos momentos livres.</p>
+        <div class="card-footer">
+          <span class="solution-count">💡 Ver 3 estratégias de solução</span>
+          <span class="arrow-icon">&rarr;</span>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card" data-category="estudos" onclick="openModal('modal-5')">
+        <div class="card-header">
+          <span class="card-category category-estudos">Metodologia</span>
+          <span class="card-tag">Ineficiência</span>
+        </div>
+        <h2 class="card-title">Estudo Passivo Sem Retenção</h2>
+        <p class="card-description">Passar horas lendo ou assistindo videoaulas mas esquecer o conteúdo poucos dias depois, gerando frustração com o tempo investido.</p>
+        <div class="card-footer">
+          <span class="solution-count">💡 Ver 3 estratégias de solução</span>
+          <span class="arrow-icon">&rarr;</span>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card" data-category="trabalho" onclick="openModal('modal-6')">
+        <div class="card-header">
+          <span class="card-category category-work">Organização</span>
+          <span class="card-tag">Logística</span>
+        </div>
+        <h2 class="card-title">Anotações e Materiais Dispersos</h2>
+        <p class="card-description">Arquivos espalhados em cadernos, PDFs no computador, downloads e notas no celular, perdendo tempo procurando informações.</p>
+        <div class="card-footer">
+          <span class="solution-count">💡 Ver 3 estratégias de solução</span>
+          <span class="arrow-icon">&rarr;</span>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- EFEITOS MODAIS -->
+
+  <!-- Modal 1 -->
+  <div class="modal-overlay" id="modal-1">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-1')">&times;</button>
+      <span class="card-category category-work">Trabalho & Estudos</span>
+      <h2 class="modal-title">Cansaço Extremo Pós-Trabalho</h2>
+      
+      <div class="modal-section">
+        <h3>Diagnóstico do Incômodo</h3>
+        <p>A energia mental é um recurso finito. Após 8 horas de trabalho, tentar realizar estudos densos com a mesma abordagem gera desgaste e baixa absorção.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Plano de Ação Sugerido</h3>
+        <ul class="solution-list">
+          <li><strong>Transição Ativa:</strong> Faça um intervalo de 20 a 30 minutos entre o trabalho e os estudos (banho, lanche leve, sem telas).</li>
+          <li><strong>Micro-sessões (Técnica Pomodoro):</strong> Estude em blocos pequenos de 25 minutos com 5 minutos de descanso.</li>
+          <li><strong>Estudo Invertido:</strong> Se possível, transfira 45 minutos de estudo para o período da manhã, antes do trabalho.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Ferramentas Recomendadas</h3>
+        <div class="tags-container">
+          <span class="tool-tag">Forest App</span>
+          <span class="tool-tag">Google Agenda</span>
+          <span class="tool-tag">Técnica Pomodoro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2 -->
+  <div class="modal-overlay" id="modal-2">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-2')">&times;</button>
+      <span class="card-category category-foco">Foco & Distração</span>
+      <h2 class="modal-title">Procrastinação por Smartphone</h2>
+      
+      <div class="modal-section">
+        <h3>Diagnóstico do Incômodo</h3>
+        <p>O cérebro busca recompensas rápidas de dopamina oferecidas por redes sociais em momentos de esforço cognitivo exigido pelos estudos.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Plano de Ação Sugerido</h3>
+        <ul class="solution-list">
+          <li><strong>Afastamento Físico:</strong> Deixe o celular em outro cômodo durante os blocos de estudo intensivo.</li>
+          <li><strong>Bloqueio de Notificações:</strong> Utilize o modo "Não Perturbe" ou focos configurados no dispositivo.</li>
+          <li><strong>Regra dos 5 Minutos:</strong> Comprometa-se a estudar apenas 5 minutos. A resistência inicial é a maior barreira.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Ferramentas Recomendadas</h3>
+        <div class="tags-container">
+          <span class="tool-tag">Cold Turkey</span>
+          <span class="tool-tag">Opal App</span>
+          <span class="tool-tag">Modo Foco Android/iOS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3 -->
+  <div class="modal-overlay" id="modal-3">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-3')">&times;</button>
+      <span class="card-category category-estudos">Planejamento</span>
+      <h2 class="modal-title">Acúmulo de Matérias e Prazos</h2>
+      
+      <div class="modal-section">
+        <h3>Diagnóstico do Incômodo</h3>
+        <p>Planejar prazos baseando-se no "cenário ideal" sem considerar imprevistos da rotina de trabalho leva à bola de neve de tarefas acumuladas.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Plano de Ação Sugerido</h3>
+        <ul class="solution-list">
+          <li><strong>Matriz de Eisenhower:</strong> Classifique tarefas entre Urgentes/Importantes para priorizar o que realmente traz resultado.</li>
+          <li><strong>Blocos de Margem:</strong> Reserve 1 ou 2 blocos semanais sem matérias novas, dedicados exclusivamente a colocar atrasos em dia.</li>
+          <li><strong>Cronograma Reverso:</strong> Comece a planejar a partir da data de entrega ou da prova, voltando dia a dia.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Ferramentas Recomendadas</h3>
+        <div class="tags-container">
+          <span class="tool-tag">Trello</span>
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Todoist</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4 -->
+  <div class="modal-overlay" id="modal-4">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-4')">&times;</button>
+      <span class="card-category category-foco">Saúde Mental</span>
+      <h2 class="modal-title">Sobrecarga Cognitiva e Burnout</h2>
+      
+      <div class="modal-section">
+        <h3>Diagnóstico do Incômodo</h3>
+        <p>Trabalhar e estudar sem limites claros cria uma culpa constante por não estar produzindo, esgotando a capacidade emocional do estudante.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Plano de Ação Sugerido</h3>
+        <ul class="solution-list">
+          <li><strong>Descanso Agendado:</strong> Trate o tempo de lazer como um compromisso inegociável na sua agenda.</li>
+          <li><strong>Definição do "Suficiente":</strong> Estabeleça metas diárias realistas. Cumpriu as metas? O dia de estudos acabou.</li>
+          <li><strong>Higiene do Sono:</strong> Desconecte-se de telas pelo menos 45 minutos antes de dormir para garantir descanso reparador.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Ferramentas Recomendadas</h3>
+        <div class="tags-container">
+          <span class="tool-tag">Habit Tracker</span>
+          <span class="tool-tag">Headspace</span>
+          <span class="tool-tag">Diário de Bordo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5 -->
+  <div class="modal-overlay" id="modal-5">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-5')">&times;</button>
+      <span class="card-category category-estudos">Metodologia</span>
+      <h2 class="modal-title">Estudo Passivo Sem Retenção</h2>
+      
+      <div class="modal-section">
+        <h3>Diagnóstico do Incômodo</h3>
+        <p>Apenas ler ou sublinhar cria a "ilusão de competência" — você reconhece o texto, mas seu cérebro não praticou a recuperação da informação.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Plano de Ação Sugerido</h3>
+        <ul class="solution-list">
+          <li><strong>Estudo Ativo (Active Recall):</strong> Faça perguntas a si mesmo após ler um capítulo antes de consultar o material.</li>
+          <li><strong>Repetição Espaçada:</strong> Revise os conteúdos em intervalos crescentes (1 dia, 7 dias, 30 dias).</li>
+          <li><strong>Método Feynman:</strong> Tente explicar o conteúdo em termos simples como se estivesse ensinando alguém leigo.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Ferramentas Recomendadas</h3>
+        <div class="tags-container">
+          <span class="tool-tag">Anki Flashcards</span>
+          <span class="tool-tag">Quizlet</span>
+          <span class="tool-tag">Método Cornell</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6 -->
+  <div class="modal-overlay" id="modal-6">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-6')">&times;</button>
+      <span class="card-category category-work">Organização</span>
+      <h2 class="modal-title">Anotações e Materiais Dispersos</h2>
+      
+      <div class="modal-section">
+        <h3>Diagnóstico do Incômodo</h3>
+        <p>A falta de um "segundo cérebro" centralizado consome energia mental com organização pontual e busca repetitiva de conteúdos perdidos.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Plano de Ação Sugerido</h3>
+        <ul class="solution-list">
+          <li><strong>Hub Centralizado:</strong> Escolha UMA única plataforma digital para centralizar resumos, notas e links.</li>
+          <li><strong>Método PARA:</strong> Organize suas pastas em Projetos, Áreas, Recursos e Arquivos para acesso intuitivo.</li>
+          <li><strong>Digitalização Rápida:</strong> Se prefere cadernos físicos, tire fotos ao fim do dia e salve na pasta correspondente.</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Ferramentas Recomendadas</h3>
+        <div class="tags-container">
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Obsidian</span>
+          <span class="tool-tag">Google Drive</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
